@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IP Tracker | Infinite Hacker</title>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      padding: 50px;
+    }
+
+    h1 {
+      color: #00ff88;
+      font-size: 3em;
+      margin-bottom: 30px;
+    }
+
+    form {
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      background-color: #1e1e1e;
+      color: #00ff88;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #00ff88;
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00cc66;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .result-box {
+      background-color: #1e1e1e;
+      padding: 25px;
+      border-radius: 10px;
+      display: inline-block;
+      text-align: left;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌐 IP Tracker</h1>
+
+  <form method="POST">
+    <input type="text" name="ip" placeholder="Enter domain here" required>
+    <button type="submit">Track</button>
+  </form>
+
+  {% if ip_data %}
+    <!-- Result Display Area -->
+<div id="result" style="border: 1px solid #ccc; padding: 20px; margin-top: 20px; border-radius: 8px;">
+
+    {% if error %}
+        <p style="color: red; font-weight: bold;">{{ error }}</p>
+    {% endif %}
+
+    <h3>IP Information:</h3>
+
+    <p><strong>IP:</strong> {{ ip_data.query or "—" }}</p>
+    <p><strong>City:</strong> {{ ip_data.city or "—" }}</p>
+    <p><strong>Region:</strong> {{ ip_data.regionName or "—" }}</p>
+    <p><strong>Country:</strong> {{ ip_data.country or "—" }}</p>
+    <p><strong>ZIP:</strong> {{ ip_data.zip or "—" }}</p>
+    <p><strong>ISP:</strong> {{ ip_data.isp or "—" }}</p>
+    
+
+    
+    {% if ip_data.lat and ip_data.lon %}
+        <p><strong>Location:</strong> 
+            <a href="https://www.google.com/maps?q={{ ip_data.lat }},{{ ip_data.lon }}" target="_blank">
+                Click to View on Map 🌍
+            </a>
+        </p>
+    {% else %}
+        <p><strong>Location:</strong> —</p>
+    {% endif %}
+    
+</div>
+
+  {% endif %}
+  
+  
+  {% if error %}
+    <p style="color: red; font-weight: bold;">{{ error }}</p>
+{% endif %}
+
+</body>
+</html>
+
+
+
